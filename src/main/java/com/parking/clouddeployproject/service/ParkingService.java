@@ -23,7 +23,6 @@ public class ParkingService {
 
     public List<Parking> findAll(){
         return parkingMap.values().stream().collect(Collectors.toList());
-
     }
     private static String getUUID() {
         return UUID.randomUUID().toString().replace("-", "");
