@@ -1,12 +1,13 @@
 package com.parking.clouddeployproject.controller;
 
+import com.parking.clouddeployproject.controller.DTO.ParkingCreateDTO;
 import com.parking.clouddeployproject.controller.DTO.ParkingDTO;
 import com.parking.clouddeployproject.controller.mapper.ParkingMapper;
 import com.parking.clouddeployproject.model.Parking;
 import com.parking.clouddeployproject.service.ParkingService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,9 +23,24 @@ public class ParkingController {
     }
 
     @GetMapping
-    public List<ParkingDTO> findAll(){
+    public ResponseEntity<List<ParkingDTO>> findAll(){
         List<Parking> parkingList = parkingService.findAll();
         List<ParkingDTO> result = parkingMapper.toParkingDTOList(parkingList);
-        return result;
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity <ParkingDTO> findByID(@PathVariable String id){
+        Parking parking = parkingService.findByID(id);
+        ParkingDTO result = parkingMapper.toParkingDTO(parking);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping
+    public ResponseEntity <ParkingDTO> create(@RequestBody ParkingCreateDTO parkingDTO){
+        var parkingCreate = parkingMapper.toParkingCreate(parkingDTO);
+        Parking parking = parkingService.create(parkingCreate);
+        ParkingDTO result = parkingMapper.toParkingDTO(parking);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 }
