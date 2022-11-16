@@ -1,5 +1,6 @@
 package com.parking.clouddeployproject.controller.mapper;
 
+import com.parking.clouddeployproject.controller.DTO.ParkingCreateDTO;
 import com.parking.clouddeployproject.controller.DTO.ParkingDTO;
 import com.parking.clouddeployproject.model.Parking;
 import org.modelmapper.ModelMapper;
@@ -24,7 +25,7 @@ public class ParkingMapper {
         return MODEL_MAPPER.map(parkingDTO, Parking.class);
     }
 
-    public Parking toParkingCreate(ParkingDTO parkingDTO) {
+    public Parking toParkingCreate(ParkingCreateDTO parkingDTO) {
         return MODEL_MAPPER.map(parkingDTO, Parking.class);
 
     }
