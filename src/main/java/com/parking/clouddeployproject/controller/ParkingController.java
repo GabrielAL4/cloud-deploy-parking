@@ -38,6 +38,7 @@ public class ParkingController {
     public ResponseEntity <ParkingDTO> findByID(@PathVariable String id){
         Parking parking = parkingService.findByID(id);
         ParkingDTO result = parkingMapper.toParkingDTO(parking);
+
         return ResponseEntity.ok(result);
     }
 

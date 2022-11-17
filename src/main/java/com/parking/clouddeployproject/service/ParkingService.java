@@ -1,5 +1,6 @@
 package com.parking.clouddeployproject.service;
 
+import com.parking.clouddeployproject.exceptions.ParkingNotFoundException;
 import com.parking.clouddeployproject.model.Car;
 import com.parking.clouddeployproject.model.Parking;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,11 @@ public class ParkingService {
     }
 
     public Parking findByID(String id) {
-        return parkingMap.get(id);
+        Parking parking = parkingMap.get(id);
+        if(parking == null){
+            throw new ParkingNotFoundException(id);
+        }
+        return parking;
     }
 
     public Parking create(Parking parkingCreate) {
