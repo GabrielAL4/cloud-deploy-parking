@@ -30,6 +30,7 @@ public class ParkingService {
         parkingMap.put(id1, parking1);
 
     }
+    private Car car;
 
     public List<Parking> findAll(){
         return parkingMap.values().stream().collect(Collectors.toList());
@@ -52,5 +53,18 @@ public class ParkingService {
         parkingCreate.setEntryHour(LocalDateTime.now());
         parkingMap.put(uuid, parkingCreate);
         return parkingCreate;
+    }
+
+    public void delete(String id) {
+        findByID(id);
+        parkingMap.remove(id);
+    }
+
+    public Parking update(String id, Parking parkingUpdate  ) {
+        Parking parkingById = findByID(id);
+        Car car = new Car();
+        parkingById.setCar(parkingUpdate.getCar());
+        parkingMap.replace(id, parkingById);
+        return parkingById;
     }
 }
